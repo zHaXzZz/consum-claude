@@ -1,0 +1,21 @@
+<!doctype html><html lang="ro"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Consum Claude</title>
+<style>:root{--bg:#fff;--fg:#1b1b1b;--mut:#666;--tr:#ececec;--ac:#c4552d;--ok:#2f7d4f}
+@media(prefers-color-scheme:dark){:root{--bg:#16161a;--fg:#e8e8e8;--mut:#9a9a9a;--tr:#2a2a30;--ac:#ff8a5c;--ok:#5cc489}}
+body{background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,sans-serif;margin:0 auto;padding:16px;max-width:560px}
+h1{font-size:1.2rem}.c{margin:18px 0}.r{display:flex;justify-content:space-between;align-items:baseline}
+.t{font-weight:600}.p{font-size:1.6rem;font-weight:700}.b{height:14px;background:var(--tr);border-radius:7px;overflow:hidden;margin:6px 0}
+.b i{display:block;height:100%;background:var(--ok)}.b i.hi{background:var(--ac)}.s{color:var(--mut);font-size:.85rem}</style></head><body>
+<h1>Consum Claude</h1>
+<div class=c><div class=r><span class=t>Sesiune · 5 ore</span><span class=p id=p5>–</span></div><div class=b><i id=b5 style="width:0"></i></div><div class=s id=s5></div></div>
+<div class=c><div class=r><span class=t>Săptămânal · toate modelele</span><span class=p id=p7>–</span></div><div class=b><i id=b7 style="width:0"></i></div><div class=s id=s7></div></div>
+<p class=s id=u></p>
+<script>
+function hm(i){if(!i)return'';var d=new Date(i);return d.toLocaleString('ro-RO',{weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function f(n){return n>=1e6?(n/1e6).toFixed(1)+' M':n>=1e3?Math.round(n/1e3)+' k':n}
+function set(k,o){var p=o.pct,e=document.getElementById('p'+k),b=document.getElementById('b'+k);
+e.textContent=p==null?'?':p+'%';b.style.width=Math.min(p||0,100)+'%';b.className=p>=80?'hi':'';
+document.getElementById('s'+k).textContent=(o.reset?'Reset '+hm(o.reset)+' · ':'')+f(o.tokens)+' tokeni · $'+o.usd.toFixed(2)+' echiv. API'}
+fetch('data.json?'+Date.now()).then(r=>r.json()).then(d=>{set('5',d.h5);set('7',d.week);
+document.getElementById('u').textContent='Actualizat '+hm(d.updated)}).catch(()=>{document.getElementById('u').textContent='Date indisponibile'});
+</script></body></html>
